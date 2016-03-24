@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="javaee-api-5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/target/Library-1.0-SNAPSHOT/WEB-INF/lib/javaee-api-5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

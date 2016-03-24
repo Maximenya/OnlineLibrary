@@ -1,0 +1,7 @@
+main\java\beans\GenreList.class
+main\java\beans\Genre.class
+main\java\beans\BookList.class
+main\java\beans\Author.class
+main\java\beans\Book.class
+main\java\beans\AuthorList.class
+main\java\db\Database.class
