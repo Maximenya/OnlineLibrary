@@ -18,9 +18,8 @@ public class Database {
         try {
             ic = new InitialContext();
             ds = (DataSource) ic.lookup("java:comp/env/jdbc/library");
-            if (conn==null) {
                 conn = ds.getConnection();
-            }
+
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NamingException ex) {

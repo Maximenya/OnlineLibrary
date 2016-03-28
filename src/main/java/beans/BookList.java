@@ -12,11 +12,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.java.db.Database;
 
+import javax.swing.*;
+
 public class BookList {
 
     private ArrayList<Book> bookList = new ArrayList<Book>();
 
-    private ArrayList<Book> getBooks() {
+    private ArrayList<Book> getBooks(String str) {
         Statement stmt = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -24,41 +26,59 @@ public class BookList {
             conn = Database.getConnection();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from book order by name");
+            rs = stmt.executeQuery(str);
             while (rs.next()) {
                 Book book = new Book();
                 book.setId(rs.getInt("id"));
                 book.setName(rs.getString("name"));
-                book.setAuthor(rs.getString("author_id"));
-                book.setGenre(rs.getString("genre_id"));
+                book.setAuthor(rs.getString("author"));
+                book.setGenre(rs.getString("genre"));
                 book.setIsbn(rs.getString("isbn"));
                 book.setPageCount(rs.getInt("page_count"));
                 book.setPublishDate(rs.getDate("publish_year"));
-                book.setPublisher(rs.getString("publisher_id"));
+                book.setPublisher(rs.getString("publisher"));
+                book.setImage(new ImageIcon(rs.getBytes("image")).getImage());
                 bookList.add(book);
             }
 
         } catch (SQLException ex) {
-            Logger.getLogger(AuthorList.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(BookList.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
-                if (stmt!=null) stmt.close();
-                if (rs!=null)rs.close();
-                if (conn!=null)conn.close();
+                if (stmt != null) {
+                    stmt.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
             } catch (SQLException ex) {
-                Logger.getLogger(AuthorList.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BookList.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 
         return bookList;
     }
 
-    public ArrayList<Book> getBookList() {
+    public ArrayList<Book> getAllBooks() {
         if (!bookList.isEmpty()) {
             return bookList;
         } else {
-            return getBooks();
+            return getBooks("select * from book order by name");
         }
     }
+
+    public ArrayList<Book> getBooksByGenre(int id){
+        return getBooks("select b.id,b.name,b.isbn,b.page_count,b.publish_year,"
+                                + " p.name as publisher, a.fio as author, g.name as genre, b.image from book b "
+                                + "inner join author a on b.author_id=a.id "
+                                + "inner join genre g on b.genre_id=g.id "
+                                + "inner join publisher p on b.publisher_id=p.id "
+                                + "where genre_id=" + id + " order by b.name "
+                                + "limit 0,5");
+    }
+
 }
 

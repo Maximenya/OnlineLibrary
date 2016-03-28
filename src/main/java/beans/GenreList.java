@@ -24,7 +24,7 @@ public class GenreList {
             conn = Database.getConnection();
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from name");
+            rs = stmt.executeQuery("select * from genre order by name");
             while (rs.next()) {
                 Genre genre = new Genre();
                 genre.setId(rs.getInt("id"));
