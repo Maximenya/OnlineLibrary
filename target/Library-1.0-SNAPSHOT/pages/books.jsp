@@ -4,8 +4,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@include file="../jspf/header.jspf" %>
-<%@include file="../jspf/letters.jspf" %>
 <%@include file="../jspf/left_menu.jspf" %>
+<%@include file="../jspf/letters.jspf" %>
+
 <jsp:useBean id="bookList" class="main.java.beans.BookList" scope="page"/>
 <div class="book_list">
 
