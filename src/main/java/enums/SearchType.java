@@ -1,4 +1,4 @@
-package main.webapp.enums;
+package main.java.enums;
 
 public enum SearchType {
 

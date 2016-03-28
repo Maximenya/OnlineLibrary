@@ -28,7 +28,7 @@ public class Book {
     private  String author;
     private Date publishDate;
     private String publisher;
-    private Image image;
+    private byte[] image;
 
     public byte[] getContent() {
         return content;
@@ -86,11 +86,11 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public Image getImage() {
+    public byte[] getImage() {
         return image;
     }
 
-    public void setImage(Image image) {
+    public void setImage(byte[] image) {
         this.image = image;
     }
 
