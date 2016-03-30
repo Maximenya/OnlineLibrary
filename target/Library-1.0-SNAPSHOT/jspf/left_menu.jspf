@@ -5,10 +5,35 @@
     <ul class="nav">
         <jsp:useBean id="genreList" class="main.java.beans.GenreList" scope="application"/>
         <%
-            for (Genre genre : genreList.getGenreList()) {
-        %>
-        <li><a href="books.jsp?genre_id=<%=genre.getId()%>&name=<%=genre.getName()%>"><%=genre.getName()%></a></li>
 
-        <%}%>
+            long selectedGenreId = 0;
+
+
+            if (request.getParameter("genre_id") != null) {
+                selectedGenreId = Long.valueOf(request.getParameter("genre_id"));
+
+            } else if (session.getAttribute("genre_id") != null) {
+                selectedGenreId = Long.valueOf(session.getAttribute("genreId").toString());
+            }
+
+            session.setAttribute("genreId", selectedGenreId);
+
+        %>
+
+        <li><a href="books.jsp?genre_id=0">Все книги</a></li>
+        <%
+            for (Genre genre : genreList.getGenreList()) {
+                if (selectedGenreId != 0 && selectedGenreId == genre.getId()) {
+        %>
+        <li><a style="color:#ff8120;" href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%></a></li>
+        <%        } else {
+
+        %>
+        <li><a href="books.jsp?genre_id=<%=genre.getId()%>"><%=genre.getName()%></a></li>
+        <%                }
+        }
+
+        %>
+
     </ul>
 </div>
