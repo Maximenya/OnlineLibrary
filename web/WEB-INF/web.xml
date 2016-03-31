@@ -3,9 +3,41 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <filter>
+        <filter-name>CheckSessionFilter</filter-name>
+        <filter-class>main.java.filters.CheckSessionFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>CheckSessionFilter</filter-name>
+        <url-pattern>/pages/*</url-pattern>
+    </filter-mapping>
     <listener>
         <listener-class>com.sun.xml.ws.transport.http.servlet.WSServletContextListener</listener-class>
     </listener>
+    <listener>
+        <description>HttpSessionListener</description>
+        <listener-class>main.java.listeners.SessionListener</listener-class>
+    </listener>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>main.java.listeners.ContextListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>ShowImage</servlet-name>
+        <servlet-class>main.java.servlets.ShowImage</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PdfContent</servlet-name>
+        <servlet-class>main.java.servlets.PdfContent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ShowImage</servlet-name>
+        <url-pattern>/ShowImage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PdfContent</servlet-name>
+        <url-pattern>/PdfContent</url-pattern>
+    </servlet-mapping>
     <servlet>
         <description>JAX-WS endpoint</description>
         <display-name>WSServlet</display-name>
